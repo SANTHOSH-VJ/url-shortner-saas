@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 import hashlib 
 import base64 
 
+POOL = None  # define globally to avoid NameError
+
+
 load_dotenv()
  
 app = Flask(__name__) 

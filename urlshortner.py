@@ -1,21 +1,38 @@
+
 from flask import Flask, request, redirect, jsonify, render_template 
+import os
 import mysql.connector 
+from mysql.connector import pooling, Error
+from dotenv import load_dotenv
 import hashlib 
 import base64 
+
+load_dotenv()
  
 app = Flask(__name__) 
  
-# Database Configuration 
-DB_CONFIG = { 
-   'host': 'localhost', 
-   'user': 'root', 
-   'password': 'root', 
-   'database': 'test' 
-} 
- 
- 
-def get_db_connection(): 
-   return mysql.connector.connect(**DB_CONFIG) 
+# DB config from environment
+DB_CONFIG = {
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": int(os.getenv("DB_PORT", 3306)),
+    "user": os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASSWORD", "root"),
+    "database": os.getenv("DB_NAME", "test"),
+    "autocommit": True
+}
+
+# Create a pool of connections
+try:
+    POOL = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=5, **DB_CONFIG)
+except Error as e:
+    print("Error creating connection pool:", e)
+
+def get_db_connection():
+    try:
+        return POOL.get_connection()
+    except Error as e:
+        print("DB connection error:", e)
+        return None
  
  
 # Function to generate a short URL 

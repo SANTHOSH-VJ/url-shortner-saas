@@ -22,17 +22,16 @@ DB_CONFIG = {
 }
 
 # Create a pool of connections
-try:
-    POOL = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=5, **DB_CONFIG)
-except Error as e:
-    print("Error creating connection pool:", e)
-
 def get_db_connection():
+    if POOL is None:
+        print("Connection pool is not initialized")
+        return None
     try:
         return POOL.get_connection()
     except Error as e:
         print("DB connection error:", e)
         return None
+
  
  
 # Function to generate a short URL 

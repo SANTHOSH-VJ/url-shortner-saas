@@ -1,0 +1,2 @@
+Run `flask db init`, `flask db migrate -m "init"`, and `flask db upgrade`.
+

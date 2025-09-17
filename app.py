@@ -9,7 +9,10 @@ import base64
 
 POOL = None  # define globally to avoid NameError
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b5a4667d21a630e38ba744946d8f6c302a20ad76
 load_dotenv()
  
 app = Flask(__name__) 

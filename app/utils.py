@@ -22,3 +22,4 @@ def generate_qr_png_bytes(url: str) -> bytes:
     return buf.getvalue()
 
 
+

@@ -12,3 +12,4 @@ class Config:
     API_RATE_LIMIT = os.getenv("API_RATE_LIMIT", "100/hour")
 
 
+

@@ -27,3 +27,4 @@ def register_error_handlers(app):
         return jsonify({"error": "server_error", "message": "An internal error occurred"}), 500
 
 
+

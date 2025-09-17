@@ -9,3 +9,4 @@ def configure_logging(level: int | str = logging.INFO) -> None:
     logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 
 
+

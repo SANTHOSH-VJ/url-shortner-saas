@@ -43,5 +43,3 @@ def create_api_key():
     db.session.add(api_key)
     db.session.commit()
     return jsonify({"api_key": api_key.key}), 201
-
-

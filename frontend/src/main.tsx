@@ -15,8 +15,13 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ long_url: longUrl })
       })
+      
+      if (!res.ok) {
+        const errorText = await res.text()
+        throw new Error(`HTTP ${res.status}: ${errorText}`)
+      }
+      
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed')
       setShortUrl(data.short_url)
     } catch (e: any) {
       setError(e.message)
@@ -37,4 +42,5 @@ function App() {
 }
 
 createRoot(document.getElementById('root')!).render(<App />)
+
 

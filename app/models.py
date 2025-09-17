@@ -65,3 +65,4 @@ class ApiKey(db.Model):
         return secrets.token_hex(24)
 
 
+

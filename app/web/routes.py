@@ -23,6 +23,16 @@ def shorten_form():
     url = Url(long_url=long_url, short_code=code)
     db.session.add(url)
     db.session.commit()
+    
+    # Check if this is an AJAX request (from frontend)
+    if request.headers.get('Content-Type') == 'application/json' or request.is_json:
+        return {
+            "short_url": f"{request.host_url.rstrip('/')}/{url.short_code}",
+            "short_code": url.short_code,
+            "long_url": url.long_url
+        }
+    
+    # Regular form submission
     return f"Shortened URL: <a href='/{url.short_code}'>{request.host_url}{url.short_code}</a>"
 
 
@@ -41,5 +51,6 @@ def redirect_short(code_or_alias: str):
     db.session.add(click)
     db.session.commit()
     return redirect(u.long_url)
+
 
 
